@@ -1,0 +1,22 @@
+header {
+  height: 10vh;
+  margin: 0;
+}
+
+div#wrapper{
+ display: grid;
+ width: 85vh;
+ height: 85vh;
+   margin-top: 0;
+   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  float: right;
+}
+
+#wrapper > div {
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.board {
+  border: 1px solid black;
+}
