@@ -1,11 +1,14 @@
 const CreateAppend = require('../helpers/create_append.js');
+const path = require('../models/path.js');
+const colours = require('../models/colours.js');
+
 
 const BoardView = function (element) {
   this.element = element;
 };
 
 BoardView.prototype.bindEvents = function () {
-  this.renderBoard(15);
+  this.renderBoard(13);
 };
 
 BoardView.prototype.renderBoard = function (dimensions) {
@@ -17,6 +20,24 @@ BoardView.prototype.renderBoard = function (dimensions) {
       const rowDiv = new CreateAppend('div', `${colID},${rowID}`, colDiv);
       rowDiv.id = `${colID},${rowID}`;
       rowDiv.classList.add('board');
+      if (path.includes(rowDiv.id)) {
+        rowDiv.classList.add('path');
+      };
+      if (colours.red.includes(rowDiv.id)) {
+        rowDiv.classList.add('red');
+      }
+      else if (colours.green.includes(rowDiv.id)) {
+        rowDiv.classList.add('green');
+      }
+      else if (colours.blue.includes(rowDiv.id)) {
+        rowDiv.classList.add('blue');
+      }
+      else if (colours.yellow.includes(rowDiv.id)) {
+        rowDiv.classList.add('yellow');
+      }
+      else if (rowDiv.id == "7,7") {
+        rowDiv.classList.add('home');
+      }
     }
   }
 };

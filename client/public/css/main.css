@@ -8,15 +8,45 @@ div#wrapper{
  width: 85vh;
  height: 85vh;
    margin-top: 0;
-   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   float: right;
 }
 
 #wrapper > div {
   display: grid;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
 }
 
 .board {
+border: 1px solid black;
+}
+
+.path {
+  background-color: burlywood;
   border: 1px solid black;
+}
+
+.red {
+  background-color: red;
+  border: 1px solid black;
+}
+
+.green {
+  background-color: green;
+  border: 1px solid black;
+}
+
+.blue {
+  background-color: blue;
+  border: 1px solid black;
+}
+
+.yellow {
+  background-color: yellow;
+  border: 1px solid black;
+}
+
+.home {
+  background-color: grey;
+  /* background-image: url("https://media.giphy.com/media/l3q2zVr6cu95nF6O4/giphy.gif"); */
 }
