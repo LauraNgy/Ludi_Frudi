@@ -10,24 +10,39 @@ const DiceView = function (container) {
 
 
 DiceView.prototype.bindEvents = function () {
-console.log("diceView exists");
-this.renderDiceView();
+
+  this.renderDiceView();
+  this.diceDiv.addEventListener('click', (event) => {
+    this.handleDiceButton();
+  });
 };
 
 DiceView.prototype.renderDiceView = function () {
-console.log("renderDiceView exists");
-const newDiv = new CreateAppend('div', '', this.container);
-newDiv.id = 'dice-view';
-this.diceDiv = newDiv;
-console.log('this.diceDiv:', this.diceDiv);
+  const newDiv = new CreateAppend('div', '', this.container);
+  newDiv.id = 'dice-view';
+  this.diceDiv = newDiv;
 
-const diceButton = new CreateAppend('input', '', this.diceDiv);
-diceButton.type = 'button';
-diceButton.value = 'dice';
-diceButton.id = 'dice-button';
+  const diceButton = new CreateAppend('input', '', this.diceDiv);
+  diceButton.type = 'button';
+  diceButton.value = 'dice';
+  diceButton.id = 'dice-button';
 
-const result = new CreateAppend('div', '', this.diceDiv);
-result.id = 'dice-result-view';
+  const result = new CreateAppend('div', '', this.diceDiv);
+  result.id = 'dice-result-view';
+  this.resultView = result;
+};
+
+DiceView.prototype.handleDiceButton = function () {
+  let result = this.rollDice(1,6);
+  this.resultView.textContent = `${result}`;
+  PubSub.publish('DiceView:dice-roll-result-loaded', result);
+  console.log(result);
+};
+
+DiceView.prototype.rollDice = function (min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
 module.exports = DiceView;
