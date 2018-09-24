@@ -1,5 +1,5 @@
 const CreateAppend = require('../helpers/create_append.js');
-const path = require('../models/path.js');
+const boardPath = require('../models/board_path.js');
 const colours = require('../models/colours.js');
 
 
@@ -20,7 +20,7 @@ BoardView.prototype.renderBoard = function (dimensions) {
       const rowDiv = new CreateAppend('div', `${colID},${rowID}`, colDiv);
       rowDiv.id = `${colID},${rowID}`;
       rowDiv.classList.add('board');
-      if (path.includes(rowDiv.id)) {
+      if (boardPath.includes(rowDiv.id)) {
         rowDiv.classList.add('path');
       };
       if (colours.red.includes(rowDiv.id)) {

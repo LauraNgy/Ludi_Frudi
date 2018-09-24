@@ -1,4 +1,4 @@
-const path = [
+const boardPath = [
   "8,1", "8,2", "8,3", "8,4", "8,5", "8,6",
   "9,6", "10,6", "11,6", "12,6", "13,6",
   "13,7", "13,8",
@@ -13,4 +13,4 @@ const path = [
   "7,1"
 ];
 
-module.exports = path;
+module.exports = boardPath;
