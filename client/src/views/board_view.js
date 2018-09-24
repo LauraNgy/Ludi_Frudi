@@ -8,12 +8,14 @@ const BoardView = function (element) {
 };
 
 BoardView.prototype.bindEvents = function () {
-  this.renderBoard(13);
+  const board = new CreateAppend('div', "", this.element);
+  board.classList.add('mainBoard');
+  this.renderBoard(13, board);
 };
 
-BoardView.prototype.renderBoard = function (dimensions) {
+BoardView.prototype.renderBoard = function (dimensions, board) {
   for (let colID = 1; colID <= dimensions; colID++) {
-    const colDiv = new CreateAppend('div', "", this.element);
+    const colDiv = new CreateAppend('div', "", board);
     colDiv.id = colID;
     colDiv.classList.add('board');
     for (let rowID = 1; rowID <= dimensions; rowID++) {
