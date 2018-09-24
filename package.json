@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha ./client/src/spec/pawn_spec.js",
+    "test": "mocha ./client/src/spec",
     "build": "webpack -w",
     "server:dev": "nodemon server/server.js",
     "start": "node server/server.js"

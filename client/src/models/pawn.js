@@ -6,7 +6,6 @@ const Pawn = function (id, position, stepcount, status) {
   this.position = position;
   this.stepcount = 0;
   this.status = 'home';
-  this.finishArray = ["7,12", "7,11", "7,10", "7,9"];
 }
 
 
@@ -16,7 +15,7 @@ Pawn.prototype.start = function (colour) {
   this.status = 'board';
 };
 
-Pawn.prototype.move = function (steps) {
+Pawn.prototype.move = function (steps, finishArray) {
   const initCoord = boardPath.indexOf(this.position);
   let newCoord = initCoord + steps;
   if (newCoord > 48) {
@@ -26,7 +25,7 @@ Pawn.prototype.move = function (steps) {
   }
   this.stepcount += steps;
   if (this.stepcount > 48) {
-    this.finishArray.forEach((finishCoord) => {
+    finishArray.forEach((finishCoord) => {
       // const finishDiv = document.querySelector(`#${finishCoord}`);
       // if (finishDiv.innerHTML === "") {
         this.position = finishCoord;
