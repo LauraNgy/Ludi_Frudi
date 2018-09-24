@@ -37,6 +37,7 @@ BoardView.prototype.renderBoard = function (dimensions) {
       }
       else if (rowDiv.id == "7,7") {
         rowDiv.classList.add('home');
+        rowDiv.textContent = "⌂";
       }
     }
   }
