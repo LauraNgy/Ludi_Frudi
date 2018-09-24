@@ -36,7 +36,6 @@ DiceView.prototype.handleDiceButton = function () {
   let result = this.rollDice(1,6);
   this.resultView.textContent = `${result}`;
   PubSub.publish('DiceView:dice-roll-result-loaded', result);
-  console.log(result);
 };
 
 DiceView.prototype.rollDice = function (min, max) {
