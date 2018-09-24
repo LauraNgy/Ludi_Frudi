@@ -35,9 +35,11 @@ BoardView.prototype.renderBoard = function (dimensions) {
       else if (colours.yellow.includes(rowDiv.id)) {
         rowDiv.classList.add('yellow');
       }
-      else if (rowDiv.id == "7,7") {
+      else if (["7,7", "6,7", "7,6", "8,7", "7,8"].includes(rowDiv.id)) {
         rowDiv.classList.add('home');
+        if (rowDiv.id == "7,7") {
         rowDiv.textContent = "⌂";
+        }
       }
     }
   }

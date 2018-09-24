@@ -10,14 +10,14 @@ describe('Pawn', function() {
   });
 
  it('should be able to go on starting position', function () {
-   pawn.start();
+   pawn.start('yellow');
    const actual = pawn.position;
    const expected = "6,13";
    assert.strictEqual(actual, expected);
  });
 
  it('should increase the number of steps on move', function () {
-   pawn.start();
+   pawn.start('yellow');
    pawn.move(3);
    const actual = pawn.stepcount;
    const expected = 3;
@@ -25,7 +25,7 @@ describe('Pawn', function() {
  });
 
  it('should change position on move', function (){
-   pawn.start();
+   pawn.start('yellow');
    pawn.move(4);
    const actual = pawn.position;
    const expected = "6,9";
@@ -33,7 +33,7 @@ describe('Pawn', function() {
  });
 
  it('should loop movement', function () {
-   pawn.start();
+   pawn.start('yellow');
    pawn.move(25);
    const actual = pawn.position;
    const expected = "8,2";
@@ -41,15 +41,16 @@ describe('Pawn', function() {
  });
 
   it('should go home', function () {
-    pawn.start();
+    pawn.start('yellow');
     pawn.move(49);
     const actual = pawn.position;
-    const expected = "7,8";
+    const expected = "7,9";
+    assert.strictEqual(actual, expected);
   });
 
-  it('should change status when home', function () {
-    pawn.start();
-    pawn.move(48);
+  it('should change status when finish', function () {
+    pawn.start('yellow');
+    pawn.move(49);
     const actual = pawn.status;
     const expected = "finish";
     assert.strictEqual(actual, expected);
