@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha ./client/src/spec/pawn_spec.js",
     "build": "webpack -w",
     "server:dev": "nodemon server/server.js",
     "start": "node server/server.js"
@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/LauraNgy/Project_02_Ludo_Game#readme",
   "devDependencies": {
+    "mocha": "^5.2.0",
     "nodemon": "^1.18.4",
     "webpack": "^4.19.1",
     "webpack-cli": "^3.1.0"
