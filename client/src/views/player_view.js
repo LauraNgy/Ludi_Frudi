@@ -4,6 +4,7 @@ const PubSub = require('../helpers/pub_sub.js');
 const PlayerView = function (element) {
   this.element = element;
   this.listDiv = new CreateAppend('div', "", this.element);
+  this.form = null;
 }
 
 PlayerView.prototype.bindEvents = function () {
@@ -23,6 +24,7 @@ PlayerView.prototype.renderPlayerView = function () {
   const playersSubmitButton = new CreateAppend('input', "", playerForm);
   playersSubmitButton.type = 'submit';
   playersSubmitButton.value = "PLAY!!";
+  this.form = playerForm;
 };
 
 PlayerView.prototype.populatePlayers = function (playerForm, colour) {
@@ -43,6 +45,7 @@ PlayerView.prototype.handleSubmitPlayers = function () {
     }
   }
   PubSub.publish('PlayerView:players-submitted', players);
+  this.form.reset();
 };
 
 module.exports = PlayerView;
