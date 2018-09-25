@@ -14,19 +14,18 @@ Game.prototype.getPlayers = function () {
       const player = new Player(colour);
       this.players.push(player);
       PubSub.publish('Game:colour-chosen', colour);
-      console.log(this.players);
     });
+    console.log(this);
   });
 };
 
-
 Game.prototype.playTurn = function (diceValue) {
-  console.log("platTurn works");
+  // console.log("platTurn works");
   PubSub.subscribe('BoardView:pawn-selected', (event) => {
-    console.log(event.detail);
+    // console.log(event.detail);
     const pawnID = event.detail;
-    const thisPlayer = this.players.shift();
-    // console.log(this.players); 
+    // const thisPlayer = this.players.shift();
+    console.log(this.players);
     thisPlayer.turn(diceValue);
     this.players.push(thisPlayer);
 

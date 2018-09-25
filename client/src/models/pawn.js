@@ -15,7 +15,10 @@ Pawn.prototype.start = function (colour) {
   this.status = 'board';
 };
 
-Pawn.prototype.move = function (diceValue, finishArray) {
+Pawn.prototype.move = function (diceValue) {
+    PubSub.subscribe('DiceView:dice-value', (event) => {
+      console.log(event.detail);
+    })
     const initCoord = boardPath.indexOf(this.position);
     let newCoord = initCoord + diceValue;
     if (newCoord > 48) {

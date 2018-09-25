@@ -16,6 +16,7 @@ DiceView.prototype.bindEvents = function () {
   this.diceDiv.addEventListener('click', (event) => {
       let result = this.rollDice(1,6);
       this.resultView.textContent = `${result}`;
+      PubSub.publish('DiceView:dice-value', result)
       game.playTurn(result);
   });
 };
