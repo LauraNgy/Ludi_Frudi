@@ -18,6 +18,7 @@ Game.prototype.getPlayers = function () {
   });
 };
 
+<<<<<<< HEAD
 Game.prototype.playTurns = function () {
 
   while (this.winner === null) {
@@ -45,7 +46,18 @@ Game.prototype.playTurns = function () {
 Game.prototype.testpublishing = function () {
   PubSub.subscribe('BoardView:pawn-selected', (event) => {
     // console.log(event.detail);
+=======
+Game.prototype.playTurn = function () {
+  PubSub.subscribe('DiceView:dice-roll-result-loaded', (event) => {
+    const diceValue = event.detail;
+    const thisPlayer = this.players.shift();
+    console.log(thisPlayer);
+    thisPlayer.turn(diceValue);
+    this.players.push(thisPlayer);
+>>>>>>> f5c48ac6507cbd5cf741a294161dbd5d359d2250
   });
 };
+;
+
 
 module.exports = Game;

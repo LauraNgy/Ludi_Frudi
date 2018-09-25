@@ -1,5 +1,6 @@
 const CreateAppend = require('../helpers/create_append');
 const PubSub = require('../helpers/pub_sub.js');
+const Game = require('../models/game.js');
 
 const PlayerView = function (element) {
   this.element = element;
