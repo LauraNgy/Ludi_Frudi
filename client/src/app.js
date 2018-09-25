@@ -4,9 +4,11 @@ const PlayerView = require('./views/player_view.js');
 const Game = require('./models/game.js');
 
 document.addEventListener('DOMContentLoaded', () => {
+
  const gameDiv = document.querySelector('#wrapper');
  const boardView = new BoardView(gameDiv);
  boardView.bindEvents();
+
 
  const diceView = new DiceView(gameDiv);
  diceView.bindEvents();
@@ -16,4 +18,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
  const game = new Game();
  game.getPlayers();
+ game.playTurns();
 });

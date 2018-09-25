@@ -4,7 +4,20 @@ const config = {
     path: `${__dirname}/client/public/js`,
     filename: 'bundle.js'
   },
-  mode: 'development'
+  mode: 'development',
+  module: {
+    rules: [
+      {
+       test: /\.(png|jpg|gif|jpeg)$/,
+       use: [
+         {
+           loader: 'file-loader',
+           options: {}
+         }
+       ]
+     }
+    ]
+  }
 };
 
 module.exports = config;
