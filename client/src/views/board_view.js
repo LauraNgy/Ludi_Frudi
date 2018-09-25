@@ -30,7 +30,7 @@ BoardView.prototype.renderBoard = function (dimensions, board) {
     colDiv.id = colID;
     colDiv.classList.add('board');
     for (let rowID = 1; rowID <= dimensions; rowID++) {
-      const rowDiv = new CreateAppend('div', ``, colDiv);
+      const rowDiv = new CreateAppend('div', `${colID},${rowID}`, colDiv);
       rowDiv.id = `${colID},${rowID}`;
       rowDiv.classList.add('board');
       if (boardPath.includes(rowDiv.id)) {
@@ -61,28 +61,32 @@ BoardView.prototype.renderBoard = function (dimensions, board) {
 };
 
 BoardView.prototype.createPawns = function (rowDiv) {
-  PubSub.subscribe('Game:player-chosen', (event) => {
+  PubSub.subscribe('Game:players-chosen', (event) => {
     const game = new Game();
+    const player = event.detail;
     const colour = event.detail.colour;
     for (let i = 1; i <= 4; i++) {
       if (homes[colour][i-1] === rowDiv.id) {
         const pawn = new CreateAppend('img', "", rowDiv);
         pawn.id = `${colour}${i}`;
-        // console.log(colour);
         pawn.src = "/images/" + colour + ".png";
         pawn.alt = `${colour}`;
-        const pawnObj = new Pawn(pawn.id, rowDiv.id);
-        // console.log(pawnObj);
+        const pawnObj = new Pawn(pawn.id, rowDiv.id, colour);
+        player.pawns.push(pawnObj);
         pawn.classList.add('pawn');
         pawn.addEventListener('click', (event) => {
-          PubSub.publish('BoardView:pawn-selected', event.target.id);
+          const playerPawn = {
+            "player": player,
+            "pawn": event.target.id
+          }
+          PubSub.publish('BoardView:player-pawn-selected', playerPawn);
           // game.playTurn();
-          const pawnView = new PawnView(rowDiv);
+          const pawnView = new PawnView(rowDiv, pawn.id);
           pawnView.renderMove();
           // console.log(event.target.id);
-        })
-      }
-    }
+        });
+      };
+    };
   });
 };
 

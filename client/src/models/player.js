@@ -17,16 +17,13 @@ Player.prototype.getFinishArray = function () {
 
 
 
-Player.prototype.turn = function (diceValue) {
-  PubSub.subscribe('BoardView:pawn-selected', (event) => {
-    const pawnID = event.detail;
-    console.log(pawnID);
+Player.prototype.turn = function (diceValue, pawnID) {
     const playerPawn = this.pawns.find( (pawn) => {
       return pawnID === pawn.id;
     });
     if (diceValue === 6) {
       if (playerPawn.status === 'home'){
-        playerPawn.start(this.colour);
+        playerPawn.start();
       }
     } else {
       playerPawn.move(diceValue, this.finishArray);
@@ -34,7 +31,6 @@ Player.prototype.turn = function (diceValue) {
         this.won += 1;
       }
     }
-  });
 };
 
 module.exports = Player;
