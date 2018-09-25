@@ -21,7 +21,7 @@ Game.prototype.getPlayers = function () {
 Game.prototype.playTurns = function () {
 
   while (this.winner === null) {
-    console.log(this.players);
+    // console.log(this.players);
     this.winner = this.players[0];
     this.players.forEach( (player) => {
       PubSub.subscribe('DiceView:dice-roll-result-loaded', (event) => {

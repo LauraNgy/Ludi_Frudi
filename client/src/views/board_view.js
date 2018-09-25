@@ -27,7 +27,7 @@ BoardView.prototype.renderBoard = function (dimensions, board) {
     colDiv.id = colID;
     colDiv.classList.add('board');
     for (let rowID = 1; rowID <= dimensions; rowID++) {
-      const rowDiv = new CreateAppend('div', `${colID},${rowID}`, colDiv);
+      const rowDiv = new CreateAppend('div', ``, colDiv);
       rowDiv.id = `${colID},${rowID}`;
       rowDiv.classList.add('board');
       if (boardPath.includes(rowDiv.id)) {
@@ -59,10 +59,10 @@ BoardView.prototype.renderBoard = function (dimensions, board) {
             pawn.id = `${colour}${i}`;
             // console.log(colour);
             pawn.src = "/images/" + colour + ".png";
-            // pawn.src = red;
             pawn.alt = `${colour}`;
             const pawnObj = new Pawn(pawn.id, rowDiv.id);
-            // console.log(pawnObj);
+            console.log(pawnObj);
+            console.log(rowDiv);
             pawn.classList.add('pawn');
             pawn.addEventListener('click', (event) => {
               PubSub.publish('BoardView:pawn-selected', event.target.id)
