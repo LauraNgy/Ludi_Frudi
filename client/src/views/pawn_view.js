@@ -6,7 +6,7 @@ const PawnView = function (element, id) {
 };
 
 PawnView.prototype.renderMove = function () {
-  console.log("renderMove works!");
+  // console.log("renderMove works!");
 };
 
 

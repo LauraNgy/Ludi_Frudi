@@ -61,9 +61,9 @@ BoardView.prototype.renderBoard = function (dimensions, board) {
 };
 
 BoardView.prototype.createPawns = function (rowDiv) {
-  PubSub.subscribe('Game:colour-chosen', (event) => {
+  PubSub.subscribe('Game:player-chosen', (event) => {
     const game = new Game();
-    const colour = event.detail;
+    const colour = event.detail.colour;
     for (let i = 1; i <= 4; i++) {
       if (homes[colour][i-1] === rowDiv.id) {
         const pawn = new CreateAppend('img', "", rowDiv);
