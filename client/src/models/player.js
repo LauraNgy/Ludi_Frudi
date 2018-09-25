@@ -1,4 +1,5 @@
 const colours = require('./colours.js');
+const PubSub = require('../helpers/pub_sub.js');
 
 const Player = function (colour, pawns) {
   this.colour = colour;
@@ -9,7 +10,7 @@ const Player = function (colour, pawns) {
 };
 
 Player.prototype.getFinishArray = function () {
-  for (let i = 1, i <= 4, i++) {
+  for (let i = 1; i <= 4; i++) {
     this.finishArray.push(colours[this.colour][i]);
   }
 };
@@ -19,6 +20,7 @@ Player.prototype.setStatus = function () {
     const players = event.detail;
     if (players.includes(this.colour)) {
       this.status = 'Playing';
+      PubSub.publish('Player:active-colour', this.colour);
     }
   });
 };
