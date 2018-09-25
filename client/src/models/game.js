@@ -19,10 +19,8 @@ Game.prototype.getPlayers = function () {
 };
 
 Game.prototype.playTurns = function () {
-  while (!winner) {
+  while (this.winner === null) {
     this.players.forEach( (player) => {
-      PubSub.subscribe('DiceView:dice-roll-result-loaded', (event) => {
-        const diceValue = event.detail;
         PubSub.subscribe('BoardView:pawn-selected', (event) => {
           const pawnID = event.detail;
           const pawnCopy = pawnID;
