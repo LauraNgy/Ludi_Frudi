@@ -17,9 +17,10 @@ Player.prototype.getFinishArray = function () {
 
 
 
-Player.prototype.turn = function () {
+Player.prototype.turn = function (diceValue) {
   PubSub.subscribe('BoardView:pawn-selected', (event) => {
     const pawnID = event.detail;
+    console.log(pawnID);
     const playerPawn = this.pawns.find( (pawn) => {
       return pawnID === pawn.id;
     });

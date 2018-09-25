@@ -5,6 +5,8 @@ const PubSub = require('../helpers/pub_sub.js');
 const homes = require('../models/homes.js');
 const Pawn = require('../models/pawn.js');
 const path = require('path');
+const Game = require('../models/game.js');
+const PawnView = require('./pawn_view.js');
 
 
 const BoardView = function (element) {
@@ -17,6 +19,7 @@ BoardView.prototype.bindEvents = function () {
   const board = new CreateAppend('div', "", this.element);
   board.classList.add('mainBoard');
   this.board = board;
+
   // console.log(board);
   this.renderBoard(13, board);
 };
@@ -51,28 +54,35 @@ BoardView.prototype.renderBoard = function (dimensions, board) {
         rowDiv.textContent = "⌂";
         }
       }
-      PubSub.subscribe('Game:colour-chosen', (event) => {
-        const colour = event.detail;
-        for (let i = 1; i <= 4; i++) {
-          if (homes[colour][i-1] === rowDiv.id) {
-            const pawn = new CreateAppend('img', "", rowDiv);
-            pawn.id = `${colour}${i}`;
-            // console.log(colour);
-            pawn.src = "/images/" + colour + ".png";
-            // pawn.src = red;
-            pawn.alt = `${colour}`;
-            const pawnObj = new Pawn(pawn.id, rowDiv.id);
-            // console.log(pawnObj);
-            pawn.classList.add('pawn');
-            pawn.addEventListener('click', (event) => {
-              PubSub.publish('BoardView:pawn-selected', event.target.id)
-              // console.log(event.target.id);
-            })
-          }
-        }
-      });
+      this.createPawns(rowDiv);
     }
   }
+};
+
+BoardView.prototype.createPawns = function (rowDiv) {
+  PubSub.subscribe('Game:colour-chosen', (event) => {
+    const game = new Game();
+    const colour = event.detail;
+    for (let i = 1; i <= 4; i++) {
+      if (homes[colour][i-1] === rowDiv.id) {
+        const pawn = new CreateAppend('img', "", rowDiv);
+        pawn.id = `${colour}${i}`;
+        // console.log(colour);
+        pawn.src = "/images/" + colour + ".png";
+        pawn.alt = `${colour}`;
+        const pawnObj = new Pawn(pawn.id, rowDiv.id);
+        // console.log(pawnObj);
+        pawn.classList.add('pawn');
+        pawn.addEventListener('click', (event) => {
+          PubSub.publish('BoardView:pawn-selected', event.target.id);
+          game.playTurn();
+          const pawnView = new PawnView(rowDiv);
+          pawnView.renderMove();
+          // console.log(event.target.id);
+        })
+      }
+    }
+  });
 };
 
 

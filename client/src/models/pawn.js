@@ -1,6 +1,7 @@
 const colours = require('./colours.js');
 const boardPath = require('./board_path.js');
 const PubSub = require('../helpers/pub_sub.js');
+const homes = require('./homes.js');
 
 const Pawn = function (id, position) {
   this.id = id;
@@ -14,9 +15,7 @@ Pawn.prototype.start = function (colour) {
   this.status = 'board';
 };
 
-Pawn.prototype.move = function (finishArray) {
-  PubSub.subscribe('DiceView:dice-roll-result-loaded', (event) => {
-    const diceValue = event.detail;
+Pawn.prototype.move = function (diceValue, finishArray) {
     const initCoord = boardPath.indexOf(this.position);
     let newCoord = initCoord + diceValue;
     if (newCoord > 48) {
@@ -26,15 +25,12 @@ Pawn.prototype.move = function (finishArray) {
     }
     this.stepcount += diceValue;
     if (this.stepcount > 48) {
-      finishArray.forEach((finishCoord) => {
-        // const finishDiv = document.querySelector(`#${finishCoord}`);
-        // if (finishDiv.innerHTML === "") {
-          this.position = finishCoord;
+          this.position = "7,7";
           this.status = 'finish';
-        // }
-    });
-  }
-  });
+
+    };
+
+    PubSub.publish('Pawn:position-calculated', this.position);
 };
 
 module.exports = Pawn;
