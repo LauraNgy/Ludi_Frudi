@@ -5,6 +5,7 @@ const PlayerView = function (element) {
   this.element = element;
   this.listDiv = new CreateAppend('div', "", this.element);
   this.form = null;
+  this.submitButton = null;
 }
 
 PlayerView.prototype.bindEvents = function () {
@@ -25,6 +26,7 @@ PlayerView.prototype.renderPlayerView = function () {
   playersSubmitButton.type = 'submit';
   playersSubmitButton.value = "PLAY!!";
   this.form = playerForm;
+  this.submitButton = playersSubmitButton;
 };
 
 PlayerView.prototype.populatePlayers = function (playerForm, colour) {
@@ -46,6 +48,7 @@ PlayerView.prototype.handleSubmitPlayers = function () {
   }
   PubSub.publish('PlayerView:players-submitted', players);
   this.form.reset();
+  this.submitButton.setAttribute("disabled", true);
 };
 
 module.exports = PlayerView;
