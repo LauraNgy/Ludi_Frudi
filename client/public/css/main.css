@@ -23,7 +23,7 @@ div#wrapper{
 }
 
 .mainBoard {
-  background-color: skyblue;  
+  background-color: skyblue;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
@@ -37,6 +37,11 @@ div#wrapper{
   width: 6.4vh;
   margin: 1px;
 
+}
+
+.pawn {
+  height: 5vh;
+  width: auto;
 }
 
 .path {
