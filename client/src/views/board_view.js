@@ -79,9 +79,9 @@ BoardView.prototype.createPawns = function (rowDiv) {
           const pawnView = new PawnView(rowDiv);
           pawnView.renderMove();
           // console.log(event.target.id);
-        })
-      }
-    }
+        });
+      };
+    };
   });
 };
 
