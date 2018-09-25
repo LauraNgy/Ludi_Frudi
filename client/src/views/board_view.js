@@ -76,7 +76,7 @@ BoardView.prototype.createPawns = function (rowDiv) {
         pawn.classList.add('pawn');
         pawn.addEventListener('click', (event) => {
           PubSub.publish('BoardView:pawn-selected', event.target.id);
-          game.playTurn();
+          // game.playTurn();
           const pawnView = new PawnView(rowDiv);
           pawnView.renderMove();
           // console.log(event.target.id);
