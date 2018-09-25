@@ -19,21 +19,24 @@ Game.prototype.getPlayers = function () {
 };
 
 Game.prototype.playTurns = function () {
-  while (!winner) {
+
+  while (this.winner === null) {
+    console.log(this.players);
+    this.winner = this.players[0];
     this.players.forEach( (player) => {
       PubSub.subscribe('DiceView:dice-roll-result-loaded', (event) => {
         const diceValue = event.detail;
-        PubSub.subscribe('BoardView:pawn-selected', (event) => {
-          const pawnID = event.detail;
-          const pawnCopy = pawnID;
-          pawnCopy.pop();
-          if (player.colour === pawnCopy) {
-            player.turn(pawnID, diceValue);
-            if (player.won === 4) {
-              this.winner = player;
-            }
-          }
-        });
+        console.log(diceValue);
+    //     PubSub.subscribe('BoardView:pawn-selected', (event) => {
+    //       const pawnID = event.detail;
+    //
+    //       if (player.colour === pawnCopy) {
+    //         player.turn(pawnID, diceValue);
+    //         if (player.won === 4) {
+    //           this.winner = player;
+    //         }
+    //       }
+        // });
       });
     });
   };
@@ -41,7 +44,7 @@ Game.prototype.playTurns = function () {
 
 Game.prototype.testpublishing = function () {
   PubSub.subscribe('BoardView:pawn-selected', (event) => {
-    console.log(event.detail);
+    // console.log(event.detail);
   });
 };
 

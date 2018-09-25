@@ -18,5 +18,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
  const game = new Game();
  game.getPlayers();
- game.testpublishing();
+ game.playTurns();
 });

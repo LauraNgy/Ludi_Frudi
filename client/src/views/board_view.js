@@ -4,6 +4,9 @@ const colours = require('../models/colours.js');
 const PubSub = require('../helpers/pub_sub.js');
 const homes = require('../models/homes.js');
 const Pawn = require('../models/pawn.js');
+const path = require('path');
+
+const red  = require("../../public/images/red.png");
 
 
 const BoardView = function (element) {
@@ -54,13 +57,17 @@ BoardView.prototype.renderBoard = function (dimensions, board) {
         const colour = event.detail;
         for (let i = 1; i <= 4; i++) {
           if (homes[colour][i-1] === rowDiv.id) {
-            const pawn = new CreateAppend('p', colour, rowDiv);
+            const pawn = new CreateAppend('img', "", rowDiv);
             pawn.id = `${colour}${i}`;
+            // pawn.src = `../../public/images/${colour}.png`;
+            pawn.src = red;
+            pawn.alt = `${colour}`;
             const pawnObj = new Pawn(pawn.id, rowDiv.id);
+            console.log(pawnObj);
             pawn.classList.add('pawn');
             pawn.addEventListener('click', (event) => {
               PubSub.publish('BoardView:pawn-selected', event.target.id)
-              // console.log(event.target.id);
+              console.log(event.target.id);
             })
           }
         }
