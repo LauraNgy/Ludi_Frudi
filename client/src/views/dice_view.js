@@ -1,5 +1,6 @@
 const PubSub = require('../helpers/pub_sub.js');
 const CreateAppend = require('../helpers/create_append.js');
+const Game =require('../models/game.js');
 
 const DiceView = function (container) {
   this.container = container;
@@ -10,10 +11,12 @@ const DiceView = function (container) {
 
 
 DiceView.prototype.bindEvents = function () {
-
+  const game = new Game();
   this.renderDiceView();
   this.diceDiv.addEventListener('click', (event) => {
-    this.handleDiceButton();
+      let result = this.rollDice(1,6);
+      this.resultView.textContent = `${result}`;
+      game.playTurn(result);
   });
 };
 
@@ -32,11 +35,9 @@ DiceView.prototype.renderDiceView = function () {
   this.resultView = result;
 };
 
-DiceView.prototype.handleDiceButton = function () {
-  let result = this.rollDice(1,6);
-  this.resultView.textContent = `${result}`;
-  PubSub.publish('DiceView:dice-roll-result-loaded', result);
-};
+// DiceView.prototype.handleDiceButton = function () {
+//
+// };
 
 DiceView.prototype.rollDice = function (min, max) {
   min = Math.ceil(min);

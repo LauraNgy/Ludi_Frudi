@@ -30,7 +30,7 @@ BoardView.prototype.renderBoard = function (dimensions, board) {
     colDiv.id = colID;
     colDiv.classList.add('board');
     for (let rowID = 1; rowID <= dimensions; rowID++) {
-      const rowDiv = new CreateAppend('div', `${colID},${rowID}`, colDiv);
+      const rowDiv = new CreateAppend('div', ``, colDiv);
       rowDiv.id = `${colID},${rowID}`;
       rowDiv.classList.add('board');
       if (boardPath.includes(rowDiv.id)) {
@@ -55,6 +55,7 @@ BoardView.prototype.renderBoard = function (dimensions, board) {
         }
       }
       this.createPawns(rowDiv);
+
     }
   }
 };
@@ -75,7 +76,7 @@ BoardView.prototype.createPawns = function (rowDiv) {
         pawn.classList.add('pawn');
         pawn.addEventListener('click', (event) => {
           PubSub.publish('BoardView:pawn-selected', event.target.id);
-          game.playTurn();
+          // game.playTurn();
           const pawnView = new PawnView(rowDiv);
           pawnView.renderMove();
           // console.log(event.target.id);
