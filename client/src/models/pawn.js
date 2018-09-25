@@ -32,8 +32,9 @@ Pawn.prototype.move = function (finishArray) {
           this.position = finishCoord;
           this.status = 'finish';
         // }
-      });
     });
+  }
+  });
 };
 
 module.exports = Pawn;

@@ -18,30 +18,21 @@ Game.prototype.getPlayers = function () {
   });
 };
 
-Game.prototype.playTurns = function () {
-
-
-  while (this.winner === null) {
-    console.log(this.players);
-    this.winner = this.players[0];
+Game.prototype.playTurn = function () {
+  console.log(this.players);
     this.players.forEach( (player) => {
-      PubSub.subscribe('DiceView:dice-roll-result-loaded', (event) => {
-        const diceValue = event.detail;
-        console.log(diceValue);
-    //     PubSub.subscribe('BoardView:pawn-selected', (event) => {
-    //       const pawnID = event.detail;
-    //
-    //       if (player.colour === pawnCopy) {
-    //         player.turn(pawnID, diceValue);
-    //         if (player.won === 4) {
-    //           this.winner = player;
-    //         }
-    //       }
-        // });
-
-      });
+      player.turn();
+      if (player.won === 4) {
+        this.winner = player;
+      };
     });
-  };
+};
+
+Game.prototype.playGame = function () {
+  this.getPlayers();
+  while (this.winner === null) {
+    this.playTurn();
+  }
 };
 
 Game.prototype.testpublishing = function () {
