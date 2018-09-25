@@ -26,7 +26,7 @@ Game.prototype.playTurns = function () {
     this.players.forEach( (player) => {
       PubSub.subscribe('DiceView:dice-roll-result-loaded', (event) => {
         const diceValue = event.detail;
-        console.log(diceValue);
+        // console.log(diceValue);
     //     PubSub.subscribe('BoardView:pawn-selected', (event) => {
     //       const pawnID = event.detail;
     //
