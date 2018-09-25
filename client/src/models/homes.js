@@ -4,3 +4,5 @@ const homes = {
   "green": ["10,10", "12,10", "10,12", "12,12"],
   "yellow": ["2,10", "4,10", "2,12", "4,12"]
 }
+
+module.exports = homes;

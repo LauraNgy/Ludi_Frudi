@@ -2,18 +2,12 @@ const colours = require('./colours.js');
 const boardPath = require('./board_path.js');
 const PubSub = require('../helpers/pub_sub.js');
 
-const Pawn = function () {
-  this.id = "";
-  this.position = "";
+const Pawn = function (id, position) {
+  this.id = id;
+  this.position = position;
   this.stepcount = 0;
   this.status = 'home';
 }
-
-Pawn.prototype.assign = function () {
-  PubSub.subscribe('BoardView:pawn-created', (event) => {
-    console.log(event.detail);
-  });
-};
 
 Pawn.prototype.start = function (colour) {
   this.position = colours[colour][0];

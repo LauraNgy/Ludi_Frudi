@@ -1,10 +1,10 @@
 const colours = require('./colours.js');
 const PubSub = require('../helpers/pub_sub.js');
 
-const Player = function (colour, pawns) {
+const Player = function (colour) {
   this.colour = colour;
   this.status = 'Not';
-  this.pawns = pawns;
+  this.pawns = [];
   this.finishArray = [];
   this.won = 0;
 };
@@ -15,15 +15,7 @@ Player.prototype.getFinishArray = function () {
   }
 };
 
-Player.prototype.setStatus = function () {
-  PubSub.subscribe('PlayerView:players-submitted', (event) => {
-    const players = event.detail;
-    if (players.includes(this.colour)) {
-      this.status = 'Playing';
-      PubSub.publish('Player:active-colour', this.colour);
-    }
-  });
-};
+
 
 Player.prototype.turn = function (pawnID, diceValue) {
   const playerPawn = this.pawns.find( (pawn) => {

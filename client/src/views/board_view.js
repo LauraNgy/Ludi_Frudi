@@ -2,6 +2,8 @@ const CreateAppend = require('../helpers/create_append.js');
 const boardPath = require('../models/board_path.js');
 const colours = require('../models/colours.js');
 const PubSub = require('../helpers/pub_sub.js');
+const homes = require('../models/homes.js');
+const Pawn = require('../models/pawn.js');
 
 
 const BoardView = function (element) {
@@ -44,16 +46,15 @@ BoardView.prototype.renderBoard = function (dimensions, board) {
         rowDiv.textContent = "⌂";
         }
       }
-      PubSub.subscribe('Player:active-colour', (event) => {
+      PubSub.subscribe('Game:colour-chosen', (event) => {
         const colour = event.detail;
         for (let i = 1; i <= 4; i++) {
-          const pawn = new CreateAppend('p', colour, homes[i-1]);
-          pawn.id = `${colour}${i}`;
-          const pawnObj = {
-            "id": `${colour}${i}`,
-            "position": homes[i-1]
+          if (homes[colour][i-1] === rowDiv.id) {
+            const pawn = new CreateAppend('p', colour, rowDiv);
+            pawn.id = `${colour}${i}`;
+            const pawnObj = new Pawn(pawn.id, rowDiv.id);
+            console.log(pawnObj);
           }
-          PubSub.publish('BoardView:pawn-created', pawnObj);
         }
       });
     }

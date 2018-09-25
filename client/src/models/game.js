@@ -1,13 +1,21 @@
 const Player = require('./player.js');
 const PubSub = require('../helpers/pub_sub.js');
 
-const Game = function (players) {
-  this.players = players;
+const Game = function () {
+  this.players = [];
   this.winner = null;
 }
 
+
 Game.prototype.getPlayers = function () {
-  this.players.filter( player => player.status === 'Playing');
+  PubSub.subscribe('PlayerView:players-submitted', (event) => {
+    const playerColours = event.detail;
+    playerColours.forEach( colour => {
+      const player = new Player(colour);
+      this.players.push(player);
+      PubSub.publish('Game:colour-chosen', colour);
+    });
+  });
 };
 
 Game.prototype.playTurns = function () {
