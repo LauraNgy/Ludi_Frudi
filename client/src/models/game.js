@@ -25,6 +25,7 @@ Game.prototype.playTurns = function () {
         const diceValue = event.detail;
         PubSub.subscribe('BoardView:pawn-selected', (event) => {
           const pawnID = event.detail;
+          console.log(event.detail);
           const pawnCopy = pawnID;
           pawnCopy.pop();
           if (player.colour === pawnCopy) {
@@ -37,6 +38,12 @@ Game.prototype.playTurns = function () {
       });
     });
   };
+};
+
+Game.prototype.testpublishing = function () {
+  PubSub.subscribe('BoardView:pawn-selected', (event) => {
+    console.log(event.detail);
+  });
 };
 
 module.exports = Game;

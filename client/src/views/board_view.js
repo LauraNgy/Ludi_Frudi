@@ -8,11 +8,15 @@ const Pawn = require('../models/pawn.js');
 
 const BoardView = function (element) {
   this.element = element;
+  this.board = null;
+
 };
 
 BoardView.prototype.bindEvents = function () {
   const board = new CreateAppend('div', "", this.element);
   board.classList.add('mainBoard');
+  this.board = board;
+  // console.log(board);
   this.renderBoard(13, board);
 };
 
@@ -53,12 +57,17 @@ BoardView.prototype.renderBoard = function (dimensions, board) {
             const pawn = new CreateAppend('p', colour, rowDiv);
             pawn.id = `${colour}${i}`;
             const pawnObj = new Pawn(pawn.id, rowDiv.id);
-            console.log(pawnObj);
+            pawn.classList.add('pawn');
+            pawn.addEventListener('click', (event) => {
+              PubSub.publish('BoardView:pawn-selected', event.target.id)
+              // console.log(event.target.id);
+            })
           }
         }
       });
     }
   }
 };
+
 
 module.exports = BoardView;
