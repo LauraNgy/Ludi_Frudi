@@ -28,7 +28,7 @@ DiceView.prototype.renderDiceView = function () {
 
   const diceButton = new CreateAppend('input', '', this.diceDiv);
   diceButton.type = 'button';
-  diceButton.value = 'dice';
+  diceButton.value = 'Roll dice!';
   diceButton.id = 'dice-button';
 
   const result = new CreateAppend('div', '', this.diceDiv);
@@ -36,9 +36,6 @@ DiceView.prototype.renderDiceView = function () {
   this.resultView = result;
 };
 
-// DiceView.prototype.handleDiceButton = function () {
-//
-// };
 
 DiceView.prototype.rollDice = function (min, max) {
   min = Math.ceil(min);

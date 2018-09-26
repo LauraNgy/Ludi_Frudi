@@ -4,18 +4,18 @@ html {
 
 body {
   margin: 0;
+  background-color: skyblue;
 }
 
 header h1{
   font-family: 'Bungee Shade', cursive;
   text-align: center;
-  background-color: tomato;
+  background-color: skyblue;
   height: 10vh;
   margin: 0;
 }
 
 div#wrapper{
-  background-color: tomato;
   height: 91vh;
   width: 100%;
 }
@@ -24,15 +24,52 @@ div#wrapper{
 }
 
 form {
+  display: block;
   font-family: 'VT323', monospace;
+  font-size: 5vh;
 }
 
-.button {
+input {
+  margin: 1vh;
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+}
+
+input label {
+  position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+label {
+  margin-right: 10vh;
+}
+/* .button {
   font-family: 'VT323', monospace;
+} */
+
+div#dice-view {
+  margin-left: 6vh;
+}
+
+div#dice-result-view {
+  font-family: 'Luckiest Guy', cursive;
+  margin-top: 5px;
+  margin-left: 10px;
+  font-size: 15vh;
+  height: 16vh;
+}
+
+div#dice-button {
+  height: 5vh;
 }
 
 .mainBoard {
-  background-color: skyblue;
+  background-color: antiquewhite;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
@@ -47,6 +84,7 @@ form {
   margin: 1px;
 
 }
+
 
 .pawn {
   height: 6vh;
@@ -74,7 +112,7 @@ form {
 }
 
 .yellow {
-  background-color: yellow;
+  background-color: gold;
   /* border: 1px solid black; */
 }
 
