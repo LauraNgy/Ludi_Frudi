@@ -20,16 +20,20 @@ Game.prototype.bindEvents = function () {
         const pawn = new Pawn(`${colour}${i}`, homes[colour][i-1], colour);
         player.pawns.push(pawn);
       }
+      player.listenToActivePawn();
       this.players.push(player);
     });
-    console.log(this.players);
+    // console.log(this.players);
     PubSub.subscribe('DiceView:dice-value', (event) => {
       const diceValue = event.detail;
       if (this.board === null) {
         PubSub.publish('Game:game-state', this.players[0]);
         this.board = 1;
+        console.log(this.players[0]);
       } else {
-        this.playTurn(diceValue);
+        const nowPlayer = this.players.pop();
+        this.playTurn(nowPlayer,diceValue);
+        this.players.push(nowPlayer);
       }
     });
 
@@ -37,14 +41,11 @@ Game.prototype.bindEvents = function () {
   });
 };
 
-Game.prototype.playTurn = function (diceValue) {
-
-  PubSub.subscribe('PawnView:player-pawn-selected', (event) => {
-    const pawnID = event.detail.pawn;
-    const player = event.detail.player;
-    player.turn(diceValue, pawnID);
-    PubSub.publish('Game:game-state', this.players[0]);
-  });
+Game.prototype.playTurn = function (player, diceValue) {
+    player.turn(diceValue, player.activePawn);
+    console.log(player);
+    console.log(diceValue);
+    PubSub.publish('Game:game-state', player);
 };
 
 

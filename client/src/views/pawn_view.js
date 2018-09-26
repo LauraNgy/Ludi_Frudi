@@ -10,6 +10,7 @@ const PawnView = function (element) {
 };
 
 PawnView.prototype.createPawn = function (parentElement, colour, id, player) {
+  console.log("createPawn is being called");
         const old = this.element.firstChild;
         if (old !== null) {
         this.element.removeChild(old);
@@ -19,15 +20,15 @@ PawnView.prototype.createPawn = function (parentElement, colour, id, player) {
         pawn.src = "/images/" + colour + ".png";
         pawn.alt = `${colour}`;
         const pawnObj = new Pawn(pawn.id, parentElement.id, colour);
-        player.pawns.push(pawnObj);
+        // player.pawns.push(pawnObj);
         pawn.classList.add('pawn');
         pawn.addEventListener('click', (event) => {
-          const playerPawn = {
-            "player": player,
-            "pawn": event.target.id
-          }
+          // const playerPawn = {
+          //   "player": player,
+          //   "pawn": event.target.id
+          // }
           // console.log(parentElement.id);
-          PubSub.publish('PawnView:player-pawn-selected', playerPawn);
+          PubSub.publish('PawnView:player-pawn-selected', event.target.id);
         });
     };
 

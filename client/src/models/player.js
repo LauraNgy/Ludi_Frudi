@@ -7,6 +7,7 @@ const Player = function (colour) {
   this.pawns = [];
   this.finishArray = [];
   this.won = 0;
+  this.activePawn = null;
 };
 
 Player.prototype.getFinishArray = function () {
@@ -15,6 +16,11 @@ Player.prototype.getFinishArray = function () {
   }
 };
 
+Player.prototype.listenToActivePawn = function () {
+  PubSub.subscribe('PawnView:player-pawn-selected', (event) => {
+    this.activePawn = event.detail;
+  })
+};
 
 
 Player.prototype.turn = function (diceValue, pawnID) {

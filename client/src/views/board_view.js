@@ -70,7 +70,7 @@ BoardView.prototype.renderBoard = function (dimensions, board) {
       });
     }
   };
-  console.log(this.player);
+  console.log('this is the board loaded');
 };
 
 
