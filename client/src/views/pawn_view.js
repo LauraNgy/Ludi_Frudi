@@ -10,6 +10,10 @@ const PawnView = function (element) {
 };
 
 PawnView.prototype.createPawn = function (parentElement, colour, id, player) {
+        const old = this.element.firstChild;
+        if (old !== null) {
+        this.element.removeChild(old);
+        }
         const pawn = new CreateAppend('img', "", parentElement);
         pawn.id = id;
         pawn.src = "/images/" + colour + ".png";
@@ -22,26 +26,18 @@ PawnView.prototype.createPawn = function (parentElement, colour, id, player) {
             "player": player,
             "pawn": event.target.id
           }
+          console.log(parentElement.id);
           PubSub.publish('PawnView:player-pawn-selected', playerPawn);
         });
     };
 
-PawnView.prototype.editPawn = function (newParent, pawnID) {
-  this.element.innerHTML = '';
-  this.element = newParent;
-  const pawn = new CreateAppend('img', "", this.element);
-  pawn.id = pawnID;
-  pawn.src = `/images/${colour}.png`;
-  pawn.classList.add('pawn');
-  pawn.alt = `${colour}`;
-};
 
-PawnView.prototype.renderMove = function () {
-  PubSub.subscribe('Pawn:position-calculated', (event) => {
-    const divID = event.detail;
-    const parentDiv = document.getElementById(divID)
-    this.createPawn(parentDiv);
-}) ;
-}
+// PawnView.prototype.renderMove = function () {
+//   PubSub.subscribe('Pawn:position-calculated', (event) => {
+//     const pawnID = event.detail.id;
+//     const newDiv = document.getElementById(event.detail.position)
+//     newDiv.appendChild(pawnID);
+// }) ;
+// }
 
 module.exports = PawnView;

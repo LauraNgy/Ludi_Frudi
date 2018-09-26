@@ -15,7 +15,7 @@ Game.prototype.getPlayers = function () {
       player.status = 'Playing';
       this.players.push(player);
       PubSub.publish('Game:players-chosen', player);
-      console.log("player");
+      // console.log("player");
     });
   });
 };

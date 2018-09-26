@@ -14,7 +14,7 @@ const Pawn = function (id, position, colour) {
 Pawn.prototype.start = function () {
   this.position = document.querySelector(`.board.path.${this.colour}`).id;
   this.status = 'board';
-  console.log(this.position);
+  console.log("home", this.position);
 };
 
 Pawn.prototype.move = function (diceValue) {
@@ -33,9 +33,12 @@ Pawn.prototype.move = function (diceValue) {
           this.position = "7,7";
           this.status = 'finish';
     };
-    console.log(this.position);
-    console.log(this.status);
-    PubSub.publish('Pawn:position-calculated', this.position);
+    // this.editPawn(this.position, this.id)
+    console.log("new:", this.position);
+    console.log("new:",this.status);
+    console.log("new:", this.id);
+    console.log(this);
+    PubSub.publish('Pawn:position-calculated', this);
   };
 };
 module.exports = Pawn;
