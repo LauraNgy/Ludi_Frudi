@@ -12,6 +12,8 @@ const PawnView = require('./pawn_view.js');
 const BoardView = function (element) {
   this.element = element;
   this.board = null;
+  this.colour = null;
+  this.player = null;
 
 };
 
@@ -19,9 +21,12 @@ BoardView.prototype.bindEvents = function () {
   const board = new CreateAppend('div', "", this.element);
   board.classList.add('mainBoard');
   this.board = board;
-
-  // console.log(board);
-  this.renderBoard(13, board);
+  PubSub.subscribe('Game:players-chosen', (event) => {
+    this.player = event.detail;
+    this.colour = event.detail.colour;
+    console.log('something');
+    this.renderBoard(13, board);
+  });
 };
 
 BoardView.prototype.renderBoard = function (dimensions, board) {
@@ -30,7 +35,7 @@ BoardView.prototype.renderBoard = function (dimensions, board) {
     colDiv.id = colID;
     colDiv.classList.add('board');
     for (let rowID = 1; rowID <= dimensions; rowID++) {
-      const rowDiv = new CreateAppend('div', `${colID},${rowID}`, colDiv);
+      const rowDiv = new CreateAppend('div', ``, colDiv);
       rowDiv.id = `${colID},${rowID}`;
       rowDiv.classList.add('board');
       if (boardPath.includes(rowDiv.id)) {
@@ -54,40 +59,15 @@ BoardView.prototype.renderBoard = function (dimensions, board) {
         rowDiv.textContent = "⌂";
         }
       }
-      this.createPawns(rowDiv);
-
+      for (let i = 1; i <= 4; i++) {
+        if (homes[this.colour][i-1] === rowDiv.id){
+        const pawnView = new PawnView(rowDiv);
+        const pawnId = `${this.colour}${i}`;
+        pawnView.createPawn(rowDiv, this.colour, pawnId, this.player);
+      }
     }
   }
 };
-
-BoardView.prototype.createPawns = function (rowDiv) {
-  PubSub.subscribe('Game:players-chosen', (event) => {
-    const game = new Game();
-    const player = event.detail;
-    const colour = event.detail.colour;
-    for (let i = 1; i <= 4; i++) {
-      if (homes[colour][i-1] === rowDiv.id) {
-        const pawn = new CreateAppend('img', "", rowDiv);
-        pawn.id = `${colour}${i}`;
-        pawn.src = "/images/" + colour + ".png";
-        pawn.alt = `${colour}`;
-        const pawnObj = new Pawn(pawn.id, rowDiv.id, colour);
-        player.pawns.push(pawnObj);
-        pawn.classList.add('pawn');
-        pawn.addEventListener('click', (event) => {
-          const playerPawn = {
-            "player": player,
-            "pawn": event.target.id
-          }
-          PubSub.publish('BoardView:player-pawn-selected', playerPawn);
-          // game.playTurn();
-          const pawnView = new PawnView(rowDiv, pawn.id);
-          pawnView.renderMove();
-          // console.log(event.target.id);
-        });
-      };
-    };
-  });
 };
 
 

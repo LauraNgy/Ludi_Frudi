@@ -15,12 +15,13 @@ Game.prototype.getPlayers = function () {
       player.status = 'Playing';
       this.players.push(player);
       PubSub.publish('Game:players-chosen', player);
+      console.log("player");
     });
   });
 };
 
 Game.prototype.playTurn = function (diceValue) {
-  PubSub.subscribe('BoardView:player-pawn-selected', (event) => {
+  PubSub.subscribe('PawnView:player-pawn-selected', (event) => {
     const pawnID = event.detail.pawn;
     const player = event.detail.player;
     player.turn(diceValue, pawnID);

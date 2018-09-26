@@ -34,6 +34,7 @@ Pawn.prototype.move = function (diceValue) {
           this.status = 'finish';
     };
     console.log(this.position);
+    console.log(this.status);
     PubSub.publish('Pawn:position-calculated', this.position);
   };
 };
