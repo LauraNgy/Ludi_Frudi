@@ -12,8 +12,7 @@ const PawnView = require('./pawn_view.js');
 const BoardView = function (element) {
   this.element = element;
   this.board = null;
-  this.colour = null;
-  this.player = null;
+  this.players = null;
 
 };
 
@@ -23,8 +22,7 @@ BoardView.prototype.bindEvents = function () {
   this.board = board;
   PubSub.subscribe('Game:game-state', (event) => {
     this.board.innerHTML = "";
-    this.player = event.detail;
-    this.colour = event.detail.colour;
+    this.players = event.detail;
     this.renderBoard(13, board);
   });
 };
@@ -61,13 +59,15 @@ BoardView.prototype.renderBoard = function (dimensions, board) {
       }
       // for (let i = 1; i <= 4; i++) {
       //   if (homes[this.colour][i-1] === rowDiv.id){
-      this.player.pawns.forEach((pawn, index) => {
-        if (rowDiv.id === pawn.position) {
-          const pawnView = new PawnView(rowDiv);
-          const pawnId = `${this.colour}${index+1}`;
-          pawnView.createPawn(rowDiv, this.colour, pawnId, this.player);
-        };
-      });
+      this.players.forEach( (player) => {
+        player.pawns.forEach((pawn, index) => {
+          if (rowDiv.id === pawn.position) {
+            const pawnView = new PawnView(rowDiv);
+            const pawnId = `${player.colour}${index+1}`;
+            pawnView.createPawn(rowDiv, player.colour, pawnId, player);
+          };
+        });
+      })
     }
   };
   console.log('this is the board loaded');

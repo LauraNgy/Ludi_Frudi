@@ -18,8 +18,11 @@ Player.prototype.getFinishArray = function () {
 
 Player.prototype.listenToActivePawn = function () {
   PubSub.subscribe('PawnView:player-pawn-selected', (event) => {
-    this.activePawn = event.detail;
-  })
+    const clickedPawn = event.detail;
+    if (clickedPawn.includes(this.colour)) {
+      this.activePawn = clickedPawn;
+    }
+  });
 };
 
 
@@ -27,16 +30,10 @@ Player.prototype.turn = function (diceValue, pawnID) {
     const playerPawn = this.pawns.find( (pawn) => {
       return pawnID === pawn.id;
     });
-    if (diceValue === 6) {
-      if (playerPawn.status === 'home'){
-        playerPawn.start();
-      }
-    } else {
       playerPawn.move(diceValue, this.finishArray);
       if (playerPawn.status === 'finish') {
         this.won += 1;
-      }
-    }
+    };
 };
 
 module.exports = Player;

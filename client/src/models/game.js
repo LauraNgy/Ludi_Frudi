@@ -18,6 +18,7 @@ Game.prototype.bindEvents = function () {
       player.status = 'Playing';
       for (let i = 1; i <=4; i++) {
         const pawn = new Pawn(`${colour}${i}`, homes[colour][i-1], colour);
+        console.log(pawn);
         player.pawns.push(pawn);
       }
       player.listenToActivePawn();
@@ -27,26 +28,26 @@ Game.prototype.bindEvents = function () {
     PubSub.subscribe('DiceView:dice-value', (event) => {
       const diceValue = event.detail;
       if (this.board === null) {
-        PubSub.publish('Game:game-state', this.players[0]);
+        PubSub.publish('Game:game-state', this.players);
         this.board = 1;
-        console.log(this.players[0]);
       } else {
-        const nowPlayer = this.players.pop();
-        this.playTurn(nowPlayer,diceValue);
+        const nowPlayer = this.players.shift();
+        console.log(nowPlayer);
+        nowPlayer.turn(diceValue, nowPlayer.activePawn);
         this.players.push(nowPlayer);
-      }
+        PubSub.publish('Game:game-state', this.players);
+      };
     });
 
     // console.log(this.players[0].pawns[0].position);
   });
 };
 
-Game.prototype.playTurn = function (player, diceValue) {
-    player.turn(diceValue, player.activePawn);
-    console.log(player);
-    console.log(diceValue);
-    PubSub.publish('Game:game-state', player);
-};
+// Game.prototype.playTurn = function (player, diceValue) {
+//     player.turn(diceValue, player.activePawn);
+//     console.log(this.players);
+//     PubSub.publish('Game:game-state', this.players);
+// };
 
 
 module.exports = Game;

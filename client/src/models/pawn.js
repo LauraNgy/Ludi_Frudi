@@ -20,24 +20,25 @@ Pawn.prototype.start = function () {
 Pawn.prototype.move = function (diceValue) {
     const initCoord = boardPath.indexOf(this.position);
     if (initCoord === -1) {
-      this.start();
+      this.position = document.querySelector(`.board.path.${this.colour}`).id;
+      this.status = 'board';
     } else {
-    let newCoord = initCoord + diceValue;
-    if (newCoord > 48) {
-      this.position = boardPath[newCoord - 48];
-    } else {
-    this.position = boardPath[newCoord];
+      let newCoord = initCoord + diceValue;
+      if (newCoord > 48) {
+        this.position = boardPath[newCoord - 48];
+      } else {
+        this.position = boardPath[newCoord];
+      }
+      this.stepcount += diceValue;
+      if (this.stepcount > 48) {
+        this.position = "7,7";
+        this.status = 'finish';
+      };
     }
-    this.stepcount += diceValue;
-    if (this.stepcount > 48) {
-          this.position = "7,7";
-          this.status = 'finish';
-    };
     // console.log("new:", this.position);
     // console.log("new:",this.status);
     // console.log("new:", this.id);
-    // console.log(this);
+    console.log(this);
     PubSub.publish('Pawn:position-calculated', this);
-  };
 };
 module.exports = Pawn;
