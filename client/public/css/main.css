@@ -7,6 +7,7 @@ body {
 }
 
 header h1{
+  font-family: 'Bungee Shade', cursive;
   text-align: center;
   background-color: tomato;
   height: 10vh;
@@ -20,6 +21,14 @@ div#wrapper{
 }
 
 #wrapper > div {
+}
+
+form {
+  font-family: 'VT323', monospace;
+}
+
+.button {
+  font-family: 'VT323', monospace;
 }
 
 .mainBoard {
