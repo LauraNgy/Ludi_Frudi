@@ -26,7 +26,7 @@ PawnView.prototype.createPawn = function (parentElement, colour, id, player) {
             "player": player,
             "pawn": event.target.id
           }
-          console.log(parentElement.id);
+          // console.log(parentElement.id);
           PubSub.publish('PawnView:player-pawn-selected', playerPawn);
         });
     };

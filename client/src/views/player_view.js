@@ -48,6 +48,7 @@ PlayerView.prototype.handleSubmitPlayers = function () {
     }
   }
   PubSub.publish('PlayerView:players-submitted', players);
+  // console.log(players);
   this.form.reset();
   this.submitButton.setAttribute("disabled", true);
 };
