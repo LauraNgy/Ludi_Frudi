@@ -23,7 +23,7 @@ BoardView.prototype.bindEvents = function () {
   PubSub.subscribe('Game:game-state', (event) => {
     this.board.innerHTML = "";
     this.players = event.detail;
-    this.renderBoard(13, board);
+    this.renderBoard(13, this.board);
   });
 };
 
@@ -31,7 +31,6 @@ BoardView.prototype.renderBoard = function (dimensions, board) {
   for (let colID = 1; colID <= dimensions; colID++) {
     const colDiv = new CreateAppend('div', "", board);
     colDiv.id = colID;
-    colDiv.classList.add('board');
     for (let rowID = 1; rowID <= dimensions; rowID++) {
       const rowDiv = new CreateAppend('div', ``, colDiv);
       rowDiv.id = `${colID},${rowID}`;
@@ -57,8 +56,6 @@ BoardView.prototype.renderBoard = function (dimensions, board) {
         rowDiv.textContent = "⌂";
         }
       }
-      // for (let i = 1; i <= 4; i++) {
-      //   if (homes[this.colour][i-1] === rowDiv.id){
       this.players.forEach( (player) => {
         player.pawns.forEach((pawn, index) => {
           if (rowDiv.id === pawn.position) {
@@ -75,17 +72,3 @@ BoardView.prototype.renderBoard = function (dimensions, board) {
 
 
 module.exports = BoardView;
-
-// if (rowDiv.id === '2,2') {
-//   console.log(rowDiv.id);
-//   PubSub.subscribe('Pawn:position-calculated', (event) => {
-//     const pawnID = event.detail.id;
-//     // console.log(pawnID);
-//     const newDiv = document.getElementById(event.detail.position)
-//     // console.log(event.detail.position);
-//     // newDiv.appendChild(pawnView);
-//     const pawnView = new PawnView(rowDiv);
-//     pawnView.createPawn(newDiv, this.colour, pawnID, this.player);
-//
-//   });
-// }

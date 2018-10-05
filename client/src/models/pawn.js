@@ -14,12 +14,11 @@ const Pawn = function (id, position, colour) {
 Pawn.prototype.start = function () {
   this.position = document.querySelector(`.board.path.${this.colour}`).id;
   this.status = 'board';
-  // console.log("home", this.position);
 };
 
 Pawn.prototype.move = function (diceValue) {
     const initCoord = boardPath.indexOf(this.position);
-    if (initCoord === -1) {
+    if (initCoord === -1 || this.position === '7,7') {
       this.position = document.querySelector(`.board.path.${this.colour}`).id;
       this.status = 'board';
     } else {

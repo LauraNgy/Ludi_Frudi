@@ -38,16 +38,9 @@ Game.prototype.bindEvents = function () {
         PubSub.publish('Game:game-state', this.players);
       };
     });
-
-    // console.log(this.players[0].pawns[0].position);
   });
 };
 
-// Game.prototype.playTurn = function (player, diceValue) {
-//     player.turn(diceValue, player.activePawn);
-//     console.log(this.players);
-//     PubSub.publish('Game:game-state', this.players);
-// };
 
 
 module.exports = Game;
