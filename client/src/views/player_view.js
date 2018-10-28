@@ -3,17 +3,22 @@ const PubSub = require('../helpers/pub_sub.js');
 const Game = require('../models/game.js');
 
 const PlayerView = function (element) {
-  this.element = element;
-  this.listDiv = new CreateAppend('div', "", this.element);
+  this.listDiv = new CreateAppend('div', "", element);
   this.form = null;
-  this.submitButton = null;
 }
 
 PlayerView.prototype.bindEvents = function () {
   this.renderPlayerView();
   this.listDiv.addEventListener('submit', (event) => {
     event.preventDefault();
-    this.handleSubmitPlayers();
+    const players = [];
+    for (let i = 0; i < 4; i++) {
+      if (event.target[i].checked === true) {
+        players.push(event.target[i].value);
+      }
+    }
+    PubSub.publish('PlayerView:players-submitted', players);
+    this.form.innerHTML = "";
   });
 };
 
@@ -25,9 +30,8 @@ PlayerView.prototype.renderPlayerView = function () {
   this.populatePlayers(playerForm, 'yellow');
   const playersSubmitButton = new CreateAppend('input', "", playerForm);
   playersSubmitButton.type = 'submit';
-  playersSubmitButton.value = "PLAY!!";
+  playersSubmitButton.value = "Choose your colours!";
   this.form = playerForm;
-  this.submitButton = playersSubmitButton;
 };
 
 PlayerView.prototype.populatePlayers = function (playerForm, colour) {
@@ -40,17 +44,5 @@ PlayerView.prototype.populatePlayers = function (playerForm, colour) {
   playerLabel.for = colour;
 };
 
-PlayerView.prototype.handleSubmitPlayers = function () {
-  const players = [];
-  for (let i = 0; i < 4; i++) {
-    if (event.target[i].checked === true) {
-      players.push(event.target[i].value);
-    }
-  }
-  PubSub.publish('PlayerView:players-submitted', players);
-  // console.log(players);
-  this.form.reset();
-  this.submitButton.setAttribute("disabled", true);
-};
 
 module.exports = PlayerView;

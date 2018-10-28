@@ -2,7 +2,7 @@ const CreateAppend = require('../helpers/create_append.js');
 const boardPath = require('../models/board_path.js');
 const colours = require('../models/colours.js');
 const PubSub = require('../helpers/pub_sub.js');
-const homes = require('../models/homes.js');
+const starts = require('../models/starts.js');
 const Pawn = require('../models/pawn.js');
 const path = require('path');
 const Game = require('../models/game.js');
@@ -12,26 +12,19 @@ const PawnView = require('./pawn_view.js');
 const BoardView = function (element) {
   this.element = element;
   this.board = null;
-  this.players = null;
+  // this.players = null;
 
 };
 
-BoardView.prototype.bindEvents = function () {
-  const board = new CreateAppend('div', "", this.element);
-  board.classList.add('mainBoard');
-  this.board = board;
-  PubSub.subscribe('Game:game-state', (event) => {
-    this.board.innerHTML = "";
-    this.players = event.detail;
-    this.renderBoard(13, this.board);
-  });
-};
-
-BoardView.prototype.renderBoard = function (dimensions, board) {
-  for (let colID = 1; colID <= dimensions; colID++) {
-    const colDiv = new CreateAppend('div', "", board);
+BoardView.prototype.renderBoard = function () {
+  if (this.board === null) {
+    this.board = new CreateAppend('div', "", this.element);
+    this.board.classList.add('mainBoard');
+  };
+  for (let colID = 1; colID <= 13; colID++) {
+    const colDiv = new CreateAppend('div', "", this.board);
     colDiv.id = colID;
-    for (let rowID = 1; rowID <= dimensions; rowID++) {
+    for (let rowID = 1; rowID <= 13; rowID++) {
       const rowDiv = new CreateAppend('div', ``, colDiv);
       rowDiv.id = `${colID},${rowID}`;
       rowDiv.classList.add('board');
@@ -54,21 +47,28 @@ BoardView.prototype.renderBoard = function (dimensions, board) {
         rowDiv.classList.add('home');
         if (rowDiv.id == "7,7") {
         rowDiv.textContent = "⌂";
-        }
-      }
-      this.players.forEach( (player) => {
-        player.pawns.forEach((pawn, index) => {
-          if (rowDiv.id === pawn.position) {
-            const pawnView = new PawnView(rowDiv);
-            const pawnId = `${player.colour}${index+1}`;
-            pawnView.createPawn(rowDiv, player.colour, pawnId, player);
-          };
-        });
-      })
-    }
+        };
+      };
+    };
   };
-  console.log('this is the board loaded');
 };
 
+BoardView.prototype.populatePawns = function (players, gameInfo) {
+  for (let colID = 1; colID <= 13; colID++) {
+    for (let rowID = 1; rowID <= 13; rowID++) {
+      const id = `${colID},${rowID}`;
+      const positionDiv = document.getElementById(id);
+      players.forEach( (player) => {
+        player.pawns.forEach((pawn, index) => {
+          if (positionDiv.id === pawn.position) {
+            const pawnView = new PawnView(positionDiv);
+            const pawnId = `${player.colour}${index+1}`;
+            pawnView.createPawn(player.colour, pawnId, gameInfo);
+          };
+        });
+      });
+    };
+  };
+};
 
 module.exports = BoardView;

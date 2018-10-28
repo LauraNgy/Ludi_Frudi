@@ -72,7 +72,7 @@ div#dice-button {
   background-color: antiquewhite;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
   float: right;
   margin-right: 10%;
   border: 1px solid black;
@@ -82,7 +82,7 @@ div#dice-button {
   height: 6.4vh;
   width: 6.4vh;
   margin: 1px;
-
+  grid-area: "row";
 }
 
 

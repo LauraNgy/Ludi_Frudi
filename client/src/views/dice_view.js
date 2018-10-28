@@ -10,14 +10,12 @@ const DiceView = function (container) {
 };
 
 
-DiceView.prototype.bindEvents = function () {
-  // const game = new Game();
+DiceView.prototype.bindEvents = function (gameInfo) {
   this.renderDiceView();
   this.diceDiv.addEventListener('click', (event) => {
       let result = this.rollDice(1,6);
       this.resultView.textContent = `${result}`;
-      PubSub.publish('DiceView:dice-value', result);
-      // game.playTurn(result);
+      gameInfo.diceValue = result;
   });
 };
 

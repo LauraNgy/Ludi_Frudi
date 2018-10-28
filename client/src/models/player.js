@@ -8,32 +8,21 @@ const Player = function (colour) {
   this.finishArray = [];
   this.won = 0;
   this.activePawn = null;
+  this.diceValue = 0;
 };
 
-Player.prototype.getFinishArray = function () {
-  for (let i = 1; i <= 4; i++) {
-    this.finishArray.push(colours[this.colour][i]);
-  }
-};
-
-Player.prototype.listenToActivePawn = function () {
-  PubSub.subscribe('PawnView:player-pawn-selected', (event) => {
-    const clickedPawn = event.detail;
-    if (clickedPawn.includes(this.colour)) {
-      this.activePawn = clickedPawn;
+Player.prototype.playTurn = function (diceValue, pawnId) {
+  if (this.won < 4) {
+    const pawn = this.pawns.find( (pawn) => pawn.id === pawnId);
+    pawn.move(diceValue);
+    if (pawn.status === 'finish') {
+      this.won +=1;
     }
-  });
+  } else {
+    this.status = 'Won';
+  };
 };
 
 
-Player.prototype.turn = function (diceValue, pawnID) {
-    const playerPawn = this.pawns.find( (pawn) => {
-      return pawnID === pawn.id;
-    });
-      playerPawn.move(diceValue, this.finishArray);
-      if (playerPawn.status === 'finish') {
-        this.won += 1;
-    };
-};
 
 module.exports = Player;

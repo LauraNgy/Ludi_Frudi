@@ -1,7 +1,7 @@
 const colours = require('./colours.js');
 const boardPath = require('./board_path.js');
 const PubSub = require('../helpers/pub_sub.js');
-const homes = require('./homes.js');
+const starts = require('./starts.js');
 
 const Pawn = function (id, position, colour) {
   this.id = id;
@@ -11,10 +11,6 @@ const Pawn = function (id, position, colour) {
   this.status = 'home';
 }
 
-Pawn.prototype.start = function () {
-  this.position = document.querySelector(`.board.path.${this.colour}`).id;
-  this.status = 'board';
-};
 
 Pawn.prototype.move = function (diceValue) {
     const initCoord = boardPath.indexOf(this.position);
@@ -33,11 +29,7 @@ Pawn.prototype.move = function (diceValue) {
         this.position = "7,7";
         this.status = 'finish';
       };
-    }
-    // console.log("new:", this.position);
-    // console.log("new:",this.status);
-    // console.log("new:", this.id);
-    console.log(this);
-    PubSub.publish('Pawn:position-calculated', this);
+    };
+    console.log(this.position, this.stepcount);
 };
 module.exports = Pawn;
