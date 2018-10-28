@@ -24,22 +24,23 @@ PlayerView.prototype.bindEvents = function () {
 
 PlayerView.prototype.renderPlayerView = function () {
   const playerForm = new CreateAppend('form', "", this.listDiv);
-  this.populatePlayers(playerForm, 'red');
-  this.populatePlayers(playerForm, 'green');
-  this.populatePlayers(playerForm, 'blue');
-  this.populatePlayers(playerForm, 'yellow');
+  this.populatePlayers(playerForm, 'red', true);
+  this.populatePlayers(playerForm, 'green', true);
+  this.populatePlayers(playerForm, 'blue', true);
+  this.populatePlayers(playerForm, 'yellow', true);
   const playersSubmitButton = new CreateAppend('input', "", playerForm);
   playersSubmitButton.type = 'submit';
   playersSubmitButton.value = "Choose your colours!";
   this.form = playerForm;
 };
 
-PlayerView.prototype.populatePlayers = function (playerForm, colour) {
+PlayerView.prototype.populatePlayers = function (playerForm, colour, checked) {
   const playerCheckbox = new CreateAppend('input', "", playerForm);
   playerCheckbox.type = 'checkbox';
   playerCheckbox.name = 'player';
   playerCheckbox.id = colour;
   playerCheckbox.value = colour;
+  playerCheckbox.checked = checked;
   const playerLabel = new CreateAppend('label', colour, playerForm);
   playerLabel.for = colour;
 };

@@ -24,19 +24,19 @@ Game.prototype.bindEvents = function () {
       };
     });
     this.players = playersArray;
-    if (this.board === null) {
-      PubSub.publish('Game:game-state', this.players);
-      this.board = 1;
-    } else {
+    if (this.winner === null) {
       PubSub.subscribe('GameView:gameInfo-ready', (event) => {
         console.log(event);
         const nowPlayer = this.players.shift();
         this.players.push(nowPlayer);
         if (event.detail.pawnId.includes(nowPlayer.colour)) {
           nowPlayer.playTurn(event.detail.diceValue, event.detail.pawnId);
-        };
+          if (nowPlayer.status === 'Won') {
+            this.winner = nowPlayer;
+          }
+        }
+        PubSub.publish('Game:game-state', this.players);
       });
-      console.log(this.players);
       PubSub.publish('Game:game-state', this.players);
     };
   });

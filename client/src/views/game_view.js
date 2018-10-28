@@ -43,7 +43,6 @@ GameView.prototype.bindEvents = function () {
     if (gameInfo.enabled === true) {
       submitButton.disabled = false;
       submitButton.addEventListener('click', (event) => {
-        boardView.populatePawns(this.players, gameInfo);
         PubSub.publish('GameView:gameInfo-ready', gameInfo);
       });
     };
