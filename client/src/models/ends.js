@@ -1,8 +1,8 @@
-const homes = {
+const ends = {
   "red": ["2,7", "3,7", "4,7", "5,7"],
   "blue": ["7,2", "7,3", "7,4", "7,5"],
   "green": ["9,7", "10,7", "11,7", "12,7"],
   "yellow": ["7,12", "7,11", "7,10", "7,9"]
 }
 
-module.exports = homes;
+module.exports = ends;

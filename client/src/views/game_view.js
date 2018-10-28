@@ -11,42 +11,37 @@ const GameView = function (element) {
 }
 
 GameView.prototype.bindEvents = function () {
-  const gameInfo = {
-    'enabled': false,
-    'diceValue': null,
-    'pawnId': null,
-    'players': []
-  };
   const playerView = new PlayerView(this.element);
   playerView.bindEvents();
   const boardView = new BoardView(this.element);
   boardView.renderBoard();
 
   PubSub.subscribe('Game:game-state', (event) => {
+    const gameInfo = {
+      'enabled': false,
+      'diceValue': null,
+      'pawnId': null,
+      'players': []
+    };
     this.players = event.detail;
-    boardView.populatePawns(this.players, gameInfo);
-    console.log(this.players);
-    console.log(gameInfo);
+    this.removeChild('dice-view');
+    this.removeChild('info-view');
+    this.players.forEach( (player) => {
+      gameInfo.players.push(player.colour)
+    });
+    const infoView = new InfoView(this.element);
+    infoView.getTurn(gameInfo);
     const diceView = new DiceView(this.element);
     diceView.bindEvents(gameInfo);
-    console.log(gameInfo);
-    const infoView = new InfoView(this.element);
-    infoView.renderInfo(gameInfo);
-    console.log(gameInfo);
-    const submitButton = new CreateAppend('button', "", this.element);
-    if (gameInfo.pawnId === null) {
-      submitButton.textContent = "Start game";
-    } else {
-      submitButton.textContent = "Move Pawn";
-    }
-    submitButton.disabled = true;
-    if (gameInfo.enabled === true) {
-      submitButton.disabled = false;
-      submitButton.addEventListener('click', (event) => {
-        PubSub.publish('GameView:gameInfo-ready', gameInfo);
-      });
-    };
+    boardView.populatePawns(this.players, gameInfo);
   });
+};
+
+GameView.prototype.removeChild = function (child) {
+  const childNode = document.getElementById(child);
+  if (childNode) {
+    this.element.removeChild(childNode);
+  }
 };
 
 module.exports = GameView;

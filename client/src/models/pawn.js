@@ -9,27 +9,33 @@ const Pawn = function (id, position, colour) {
   this.colour = colour;
   this.stepcount = 0;
   this.status = 'home';
+  this.initCoord = null;
 }
 
+Pawn.prototype.updateStatus = function () {
+  if (boardPath.includes(this.position)) {
+    this.status = 'board';
+  }
+};
 
 Pawn.prototype.move = function (diceValue) {
-    const initCoord = boardPath.indexOf(this.position);
-    if (initCoord === -1 || this.position === '7,7') {
-      this.position = document.querySelector(`.board.path.${this.colour}`).id;
-      this.status = 'board';
+  this.initCoord = boardPath.indexOf(this.position);
+  if (this.initCoord === -1) {
+    this.position = document.querySelector(`.board.path.${this.colour}`).id;
+    this.status = 'board';
+  } else {
+    let newCoord = this.initCoord + diceValue;
+    if (newCoord >= 48) {
+      this.position = boardPath[newCoord - 48];
     } else {
-      let newCoord = initCoord + diceValue;
-      if (newCoord > 48) {
-        this.position = boardPath[newCoord - 48];
-      } else {
-        this.position = boardPath[newCoord];
-      }
-      this.stepcount += diceValue;
-      if (this.stepcount > 48) {
-        this.position = "7,7";
-        this.status = 'finish';
-      };
+      this.position = boardPath[newCoord];
+    }
+    this.stepcount += diceValue;
+    if (this.stepcount > 48) {
+      this.position = "7,7";
+      this.status = 'finish';
     };
-    console.log(this.position, this.stepcount);
+  };
+  console.log(this.position, this.stepcount);
 };
 module.exports = Pawn;

@@ -20,12 +20,13 @@ Game.prototype.bindEvents = function () {
       playersArray.push(player);
       for (let i = 1; i <=4; i++) {
         const pawn = new Pawn(`${colour}${i}`, starts[colour][i-1], colour);
+        pawn.updateStatus();
         player.pawns.push(pawn);
       };
     });
     this.players = playersArray;
     if (this.winner === null) {
-      PubSub.subscribe('GameView:gameInfo-ready', (event) => {
+      PubSub.subscribe('PawnView:game-info-ready', (event) => {
         console.log(event);
         const nowPlayer = this.players.shift();
         this.players.push(nowPlayer);

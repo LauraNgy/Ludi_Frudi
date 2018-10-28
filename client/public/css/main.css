@@ -81,7 +81,7 @@ div#dice-button {
 .board{
   height: 6.4vh;
   width: 6.4vh;
-  margin: 1px;
+  border: 1px solid antiquewhite;
   grid-area: "row";
 }
 
@@ -121,4 +121,9 @@ div#dice-button {
   text-align: center;
   color: white;
   background-color: grey;
+}
+
+.availablePawn {
+  cursor: pointer;
+  border: 1px solid black;
 }

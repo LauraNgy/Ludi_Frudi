@@ -4,33 +4,14 @@ const PlayerView = require('./player_view.js');
 
 const InfoView = function(element) {
   this.infoView = new CreateAppend('div', "", element);
-  this.diceValue = false;
-  this.pawnId = false;
+  this.infoView.id = 'info-view';
 }
 
-InfoView.prototype.renderInfo = function (gameInfo) {
-  this.renderDiceInfo();
-  this.renderPawnInfo();
-  if (this.diceValue !== false && this.pawnId !== false) {
-    gameInfo['enabled'] = true;
-  };
+InfoView.prototype.getTurn = function (gameInfo) {
+  const turnInfo = new CreateAppend('p', `It is player ${gameInfo.players[0]}'s turn. Roll the dice and select an available pawn.`, this.infoView);
 };
 
-InfoView.prototype.renderDiceInfo = function () {
-  let diceInfo = "";
-  if (this.diceValue === false) {
-    diceInfo = new CreateAppend('p', "Please roll the dice", this.infoView);
-    this.diceValue = true;
-  };
-};
 
-InfoView.prototype.renderPawnInfo = function () {
-  let playerInfo = "";
-  if (this.pawnId === false) {
-    playerInfo = new CreateAppend('p', "Please select a valid pawn", this.infoView);
-    this.pawnId = true;
-  };
-};
 
 
 module.exports = InfoView;

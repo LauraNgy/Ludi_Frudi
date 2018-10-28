@@ -4,7 +4,6 @@ const colours = require('../models/colours.js');
 const PubSub = require('../helpers/pub_sub.js');
 const starts = require('../models/starts.js');
 const Pawn = require('../models/pawn.js');
-const path = require('path');
 const Game = require('../models/game.js');
 const PawnView = require('./pawn_view.js');
 
@@ -43,12 +42,15 @@ BoardView.prototype.renderBoard = function () {
       else if (colours.yellow.includes(rowDiv.id)) {
         rowDiv.classList.add('yellow');
       }
+      else if (starts.red.includes(rowDiv.id) || starts.blue.includes(rowDiv.id) || starts.yellow.includes(rowDiv.id) || starts.yellow.includes(rowDiv.id)) {
+        rowDiv.classList.add('start');
+      }
       else if (["7,7", "6,7", "7,6", "8,7", "7,8"].includes(rowDiv.id)) {
         rowDiv.classList.add('home');
         if (rowDiv.id == "7,7") {
         rowDiv.textContent = "⌂";
-        };
-      };
+        }
+      }
     };
   };
 };
@@ -58,12 +60,19 @@ BoardView.prototype.populatePawns = function (players, gameInfo) {
     for (let rowID = 1; rowID <= 13; rowID++) {
       const id = `${colID},${rowID}`;
       const positionDiv = document.getElementById(id);
+      if (positionDiv.firstChild) {
+        positionDiv.removeChild(positionDiv.firstChild);
+        positionDiv.classList.remove('availablePawn');
+      }
+      if (positionDiv.className.includes('path')) {
+        positionDiv.innerHTML = "";
+      }
       players.forEach( (player) => {
         player.pawns.forEach((pawn, index) => {
           if (positionDiv.id === pawn.position) {
             const pawnView = new PawnView(positionDiv);
             const pawnId = `${player.colour}${index+1}`;
-            pawnView.createPawn(player.colour, pawnId, gameInfo);
+            pawnView.createPawn(player.colour, pawnId, gameInfo, pawn.status);
           };
         });
       });
