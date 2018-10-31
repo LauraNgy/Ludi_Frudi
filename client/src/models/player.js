@@ -1,4 +1,5 @@
 const colours = require('./colours.js');
+const ends = require('./ends.js');
 const PubSub = require('../helpers/pub_sub.js');
 
 const Player = function (colour) {
@@ -16,6 +17,7 @@ Player.prototype.playTurn = function (diceValue, pawnId) {
     const pawn = this.pawns.find( (pawn) => pawn.id === pawnId);
     pawn.move(diceValue);
     if (pawn.status === 'finish') {
+      pawn.position = ends[`${this.colour}`][this.won];
       this.won +=1;
     }
   } else {

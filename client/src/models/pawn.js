@@ -32,7 +32,6 @@ Pawn.prototype.move = function (diceValue) {
     }
     this.stepcount += diceValue;
     if (this.stepcount > 48) {
-      this.position = "7,7";
       this.status = 'finish';
     };
   };
