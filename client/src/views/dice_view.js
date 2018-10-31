@@ -10,13 +10,14 @@ const DiceView = function (container) {
 };
 
 
-DiceView.prototype.bindEvents = function (gameInfo) {
+DiceView.prototype.bindEvents = function (gameInfo, boardView, players) {
   this.renderDiceView();
   this.diceDiv.addEventListener('click', (event) => {
       let result = this.rollDice(1,6);
       this.resultView.textContent = `${result}`;
       gameInfo.diceValue = result;
       this.diceDiv.removeChild(document.getElementById('dice-button'));
+      boardView.populatePawns(players, gameInfo);
   });
 };
 

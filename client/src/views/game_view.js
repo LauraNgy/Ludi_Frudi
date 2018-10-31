@@ -32,7 +32,7 @@ GameView.prototype.bindEvents = function () {
     const infoView = new InfoView(this.element);
     infoView.getTurn(gameInfo);
     const diceView = new DiceView(this.element);
-    diceView.bindEvents(gameInfo);
+    diceView.bindEvents(gameInfo, boardView, this.players);
     boardView.populatePawns(this.players, gameInfo);
   });
 };
