@@ -27,7 +27,6 @@ Game.prototype.bindEvents = function () {
     this.players = playersArray;
     if (this.winner === null) {
       PubSub.subscribe('PawnView:game-info-ready', (event) => {
-        console.log(event);
         const nowPlayer = this.players.shift();
         this.players.push(nowPlayer);
         if (event.detail.pawnId.includes(nowPlayer.colour)) {

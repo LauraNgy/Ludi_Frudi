@@ -19,7 +19,6 @@ PawnView.prototype.createPawn = function (colour, id, gameInfo, status) {
   pawn.src = "/images/" + colour + ".png";
   pawn.alt = `${colour}`;
   pawn.classList.add('pawn');
-  console.log(gameInfo);
   if (gameInfo.diceValue == 6 && gameInfo.players[0] === colour) {
     this.element.classList.add('availablePawn');
     pawn.addEventListener('click', (event) => {

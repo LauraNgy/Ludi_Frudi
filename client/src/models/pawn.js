@@ -36,6 +36,5 @@ Pawn.prototype.move = function (diceValue) {
       this.status = 'finish';
     };
   };
-  console.log(this.position, this.stepcount);
 };
 module.exports = Pawn;
