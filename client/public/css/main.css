@@ -97,23 +97,19 @@ div#dice-button {
 }
 
 .red {
-  background-color: red;
-  /* border: 1px solid black; */
+  background-color: crimson;
 }
 
 .green {
-  background-color: green;
-  /* border: 1px solid black; */
+  background-color: forestgreen;
 }
 
 .blue {
-  background-color: blue;
-  /* border: 1px solid black; */
+  background-color: royalblue;
 }
 
 .yellow {
-  background-color: gold;
-  /* border: 1px solid black; */
+  background-color: #ffcc00;
 }
 
 .home {
@@ -123,7 +119,12 @@ div#dice-button {
   background-color: grey;
 }
 
+ .pawnDisabled {
+  opacity: 0.8;
+}
+
+
 .availablePawn {
   cursor: pointer;
-  border: 1px solid black;
+  opacity: 1;
 }

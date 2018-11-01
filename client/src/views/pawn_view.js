@@ -19,14 +19,17 @@ PawnView.prototype.createPawn = function (colour, id, gameInfo, status) {
   pawn.src = "/images/" + colour + ".png";
   pawn.alt = `${colour}`;
   pawn.classList.add('pawn');
-  if (gameInfo.diceValue == 6 && gameInfo.players[0] === colour) {
-    this.element.classList.add('availablePawn');
+  this.element.classList.add('pawnDisabled');
+  if (gameInfo.diceValue == 6 && gameInfo.players[0] === colour && gameInfo.enabled === true) {
+    this.element.classList.remove('pawnDisabled');
+    pawn.classList.add('availablePawn');
     pawn.addEventListener('click', (event) => {
       gameInfo['pawnId'] = pawn.id;
       PubSub.publish('PawnView:game-info-ready', gameInfo);
     });
   }
-  else if (gameInfo.players[0] === colour && status === 'board') {
+  else if (gameInfo.players[0] === colour && status === 'board' && gameInfo.enabled === true) {
+    this.element.classList.remove('pawnDisabled');
     this.element.classList.add('availablePawn');
     pawn.addEventListener('click', (event) => {
       gameInfo['pawnId'] = pawn.id;

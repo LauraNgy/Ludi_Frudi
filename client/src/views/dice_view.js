@@ -16,6 +16,7 @@ DiceView.prototype.bindEvents = function (gameInfo, boardView, players) {
       let result = this.rollDice(1,6);
       this.resultView.textContent = `${result}`;
       gameInfo.diceValue = result;
+      gameInfo.enabled = true;
       this.diceDiv.removeChild(document.getElementById('dice-button'));
       boardView.populatePawns(players, gameInfo);
   });
